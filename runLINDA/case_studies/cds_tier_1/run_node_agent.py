@@ -44,13 +44,13 @@ def main():
     if lab == "cds":
         topology_json_path = "../network_config_cds.json"
         if args.dataset == "imagenet":
-            data_dir = "/home/marcio/LINDA_data/imagenet-mini"
+            data_dir = "~/LINDA_data/imagenet-mini"
         else:
             data_dir = "~/LINDA_data"
     elif lab == "cds_res":
         topology_json_path = "../network_config_cds_resnet.json"
         if args.dataset == "imagenet":
-            data_dir = "/home/marcio/LINDA_data/imagenet-mini"
+            data_dir = "~/LINDA_data/imagenet-mini"
         else:
             data_dir = "~/LINDA_data"
 
@@ -65,9 +65,9 @@ def main():
     else:
         topology_json_path = "../network_config_local.json"
         if args.dataset =="imagenet":
-            data_dir = "/home/marcio/LINDA_data/imagenet-mini"
+            data_dir = "~/LINDA_data/imagenet-mini"
         else:
-            data_dir = "/home/marcio/LINDA_DATA"
+            data_dir = "~/LINDA_DATA"
 
 
     conf = ConfigNodeAgent(site_name=args.site,

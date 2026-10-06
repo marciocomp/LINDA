@@ -100,6 +100,14 @@ Gemma-2B is distributed by Google under its own
 [terms of use](https://ai.google.dev/gemma/terms), which you accept when you
 download the weights.
 
+Every reported number comes from Python 3.8.20, PyTorch 2.4.1+cu121 and
+transformers 4.46.3, on NVIDIA A40, RTX 4090 and RTX 3090 cards with Intel i9
+and AMD Threadripper hosts as the CPU-only data sources. Later runs on Python
+3.10 with PyTorch 2.9 and transformers 4.57 also completed, so the code is not
+tied to that stack, but it is the one behind the results. Every machine of a
+deployment needs the repository and the dependencies; the processes share
+nothing but the network.
+
 ## Usage
 
 ### 1. Describe your deployment
@@ -235,7 +243,30 @@ their root is resolved from the installation, not from the working directory, so
 every case study writes into `runLINDA/case_studies/results/{run_id}/`, one tree
 per run.
 
-### 3. Run an experiment
+### 3. Prepare the data
+
+Only Tier 1 touches the data. The Node Agents hold it, partition it and run the
+first layer; neither the compute pool nor the Orchestrator ever loads a dataset.
+
+| `--dataset` | source | how it arrives |
+|---|---|---|
+| `alpaca` | `tatsu-lab/alpaca` on Hugging Face | fetched and cached on first use |
+| `cifar10` | torchvision | fetched on first use |
+| `imagenet` | ImageNet-mini, from Kaggle | **manually**: there is no auto-download |
+
+ImageNet has to be extracted into `train/` and `val/` directories of class
+folders before the first run; the loader stops with that instruction if it is
+not. Fetching it is a manual step, outside the framework, and
+`utils/kaggle.json` is where the Kaggle credentials for it are kept.
+
+Each Tier 1 host needs its own copy, and the path comes from the `--lab` branch
+of `run_node_agent.py`, beside the topology path. `--data_dir` is parsed and
+then ignored, so that branch is the place to edit.
+
+`--new_size` truncates the dataset before it is partitioned: a fraction below
+`1.0`, an absolute number of samples at or above it.
+
+### 4. Run an experiment
 
 One process per node, each launched from its own tier directory. Tier 3 binds
 first; the lower tiers retry ten times before giving up, so they can be started
@@ -313,8 +344,62 @@ A node whose training loop raises writes its row to `failures/` and exits with
 code **17**, rather than leaving the rest of the site waiting on a forward pass
 that is not coming.
 
-> **Reproducing the experiments of the paper, injecting resource drift, and the
-> analysis scripts: TBA.**
+### 5. Runtime re-allocation
+
+Without `--realloc` the placement is computed once, at startup, and never
+revisited — the behaviour the experiments compare against. With it, the
+Orchestrator asks every site for a fresh reading after each evaluation, re-runs
+the heuristic, and when the result differs from the placement in force it
+distributes the new one together with the parameters of every range that
+changed, cut from the weights the round has just averaged. A candidate that no
+longer fits, or that would change which nodes form a chain, is refused and the
+placement in force stays. `--realloc_min_rounds` sets how many consecutive
+rounds must ask for the same change before it is acted on.
+
+Three files appear under `reallocation/`:
+
+| file | one row per |
+|---|---|
+| `decisions_*.csv` | round boundary: what moved, what the candidate would have moved, and why |
+| `profiles_*.csv` | node per round: the measured vector beside the one the placement in force was computed from |
+| `discovery_*.csv` | site: where the discovery time went |
+
+#### Making the resources move
+
+`drift_injector.py` competes for a card, so that a run's resource state really
+changes. It resolves its own paths, so it runs from anywhere; one process on
+each host that holds a target card.
+
+```bash
+# take 7 GiB of cuda:0 and hold it until stopped
+python runLINDA/case_studies/drift_injector.py --device cuda:0 --gib 7
+
+# take whatever leaves 5 GiB free, release after ten minutes
+python runLINDA/case_studies/drift_injector.py --device cuda:0 --leave-free 5 --hold-seconds 600
+```
+
+`--gpu-load N` also competes for the card's arithmetic, running kernels N% of
+the time — a duty cycle, since a GPU is either running one or not, and what
+`nvidia-smi` reports as utilization. `--start-at` and `--trigger-file` delay the
+take, and `--dry-run` says what would be taken without touching anything.
+
+For a campaign where several seeds have to suffer the same drift at the same
+moments, `--schedule` drives the injections from the run's own progress instead
+of from the clock:
+
+```bash
+# the same command on every host that holds one of the target cards
+python runLINDA/case_studies/drift_injector.py --schedule --run-id 202609281530 --gib 7 5 15
+```
+
+The `SCHEDULE` constant at the top of the file fixes the shape — which node is
+squeezed during which round, and what is released first — and `--gib` gives one
+amount per step. Each host resolves the targets through the topology and runs
+only the steps whose card is its own, which is why one command line covers the
+whole deployment. The injector reads the run's own metrics to know which round
+it is in (`--watch`), and if it finds that marker too long after it was written
+(`--max-lag`) it releases everything and aborts, so that a seed whose step
+missed its moment is missing rather than mislabelled.
 
 ## How to cite
 
