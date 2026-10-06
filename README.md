@@ -1,5 +1,7 @@
 # LINDA
 
+LINDA: Memory-Aware Dynamic Allocation for Horizontal and Hierarchical Split Federated Learning of LLMs
+
 **L**earning on **I**nterconnected **N**odes via **D**ynamic **A**llocation — a
 memory-aware framework for distributed training of Large Language Models across
 a Multi-Cluster Continuum.
