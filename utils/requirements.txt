@@ -1,0 +1,32 @@
+# @author: Marcio Lopes
+
+# pip install -r requirements.txt
+
+# --- Core Simulation & Infrastructure (Tiers 1, 2, 3) ---
+numpy>=1.24.0       # Resource matrices and vectors (r_v)
+psutil>=5.9.0       # For NodeAgent (Tier 1) to read real CPU/RAM usage
+scikit-learn>=1.3.0 # For SpectralClustering (Logical Groups) and metrics
+scipy>=1.10.0       # Auxiliary calculations for CKA matrix
+pandas>=2.0.0       # DataFrames and statistical preprocessing
+
+# --- Deep Learning Framework (PyTorch) ---
+# Note: For production, install the version compatible with your CUDA.
+torch>=2.1.0        # Main runtime for Tensors and Autograd
+torchvision>=0.16.0
+
+# --- LLM & Fine-tuning (Hugging Face Ecosystem) ---
+# Required to load Gemma-2B and apply LoRA
+transformers>=4.36.0 # Model loading
+accelerate>=0.25.0   # Efficient layer offloading
+bitsandbytes>=0.41.0 # Quantization (4-bit/8-bit) to save VRAM
+peft>=0.7.0          # Parameter-Efficient Fine-Tuning (LoRA)
+datasets>=2.14.0     # To load the Alpaca dataset
+kagglehub>=0.2.0
+
+# --- Utilities & Logging ---
+tqdm>=4.66.0         # Progress bars for logs
+networkx>=3.1        # (Optional) If you want to visualize the Resource Graph N
+
+# --- Visualization & Plotting ---
+matplotlib>=3.5.0   # Plotting base (pyplot)
+seaborn>=0.13.0     # Statistical visualizations built on matplotlib

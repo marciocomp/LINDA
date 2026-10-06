@@ -1,0 +1,159 @@
+{
+  "server_a40_2": {
+    "flops": 149.7,
+    "ram": 44.17
+  },
+   "server_a40_3": {
+    "flops": 149.7,
+    "ram": 44.17
+  },
+   "server_a40_3_1": {
+    "flops": 149.7,
+    "ram": 44.17
+  },
+   "server_a40_5": {
+    "flops": 149.7,
+    "ram": 44.17
+  },
+  "server_rtx3090_0": {
+    "flops": 71.0,
+    "ram": 23.31
+  },
+  "server_rtx3090_1": {
+    "flops": 71.0,
+    "ram": 23.31
+  },
+  "server_rtx3090_2": {
+    "flops": 71.0,
+    "ram": 23.31
+  },
+  "server_rtx3090_4": {
+    "flops": 71.0,
+    "ram": 23.31
+  },
+  "server_rtx3090_6": {
+    "flops": 71.0,
+    "ram": 23.31
+  },
+  "server_rtx3090_6_res_leader": {
+    "flops": 71.0,
+    "ram": 20.0
+  },
+  "server_rtx3090_6_res_worker": {
+    "flops": 71.0,
+    "ram": 1.0
+  },
+  "server_rtx4090_0": {
+    "flops": 165.2,
+    "ram": 23.31
+  },
+  "server_rtx4090_1": {
+    "flops": 165.2,
+    "ram": 21.31
+  },
+
+  "server_rtx2060": {
+    "flops": 12.9,
+    "ram": 5.78
+  },
+  "server_rtx2060_cpu": {
+    "flops": 12.9,
+    "ram": 25.0
+  },
+  "host_xeon": {
+    "flops": 0.5,
+    "ram": 10.0
+  },
+  "host_i9": {
+    "flops": 0.4,
+    "ram": 32.0
+  },
+  "host_cds_pc": {
+    "flops": 0.4,
+    "ram": 23.0
+  },
+  "host_cds_pc1": {
+    "flops": 0.4,
+    "ram": 17.0
+  },
+  "host_i7_leader": {
+    "flops": 0.3,
+    "ram": 110.0
+  },
+  "host_i7_manager_1": {
+    "flops": 0.3,
+    "ram": 1.0
+  },
+  "host_i7_manager_2": {
+    "flops": 0.3,
+    "ram": 0.5
+  },
+  "host_i7_compute_1": {
+    "flops": 0.3,
+    "ram": 1.0
+  },
+  "host_i7_compute_2": {
+    "flops": 0.3,
+    "ram": 1.0
+  },
+  "host_i7_compute_3": {
+    "flops": 0.3,
+    "ram": 1.0
+  },
+  "host_i7_agent": {
+    "flops": 0.3,
+    "ram":4.0
+  },
+  "host_amd_agent": {
+    "flops": 0.3,
+    "ram":20.0
+  },
+  "heracles": {
+    "flops": 20.4,
+    "ram": 100.0
+  },
+  "esculapio": {
+    "flops": 15.4,
+    "ram": 80.0
+  },
+  "perseu": {
+    "flops": 10.4,
+    "ram": 10.0
+  },
+  "thedeep_leader": {
+    "flops": 30.4,
+    "ram": 11.5
+  },
+  "thedeep_strong": {
+    "flops": 30.4,
+    "ram": 6.0
+  },
+   "thedeep_straggler": {
+    "flops": 30.4,
+    "ram": 3.0
+  },
+  "thedeep2_leader": {
+    "flops": 30.4,
+    "ram": 20.0
+  },
+  "thedeep2_strong": {
+    "flops": 30.4,
+    "ram": 1.0
+  },
+   "thedeep2_straggler": {
+    "flops": 30.4,
+    "ram": 23.31
+  },
+  "thedeep2_manager": {
+    "flops": 30.4,
+    "ram": 3.5
+  },
+  "thedeep2_compute": {
+    "flops": 30.4,
+    "ram": 2.7
+  },
+  "default": {
+    "flops": 0.1,
+    "ram": 8.0
+  }
+}

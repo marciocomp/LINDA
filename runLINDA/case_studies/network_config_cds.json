@@ -1,0 +1,92 @@
+{
+  "_comment_proxies": "host IP -> proxy that forwards back to it (iptables DNAT/SNAT), so two processes on the same host do not talk over loopback",
+  "proxies": {
+    "130.92.70.8": "130.92.65.51",
+    "130.92.70.22": "130.92.65.139"
+  },
+  "sites": {
+    "site1": {
+      "description": "Lead Cluster - High Performance & Orchestration",
+      "tier3": {
+        "leader": {
+          "id": "s1_t3_1",
+          "device": "cuda:2",
+          "hostname": "server_a40_5",
+          "ip": "130.92.70.8",
+          "port": [10101,10110]
+        }
+      },
+      "tier2": {
+        "server_1": {
+            "id": "s1_t2_1",
+            "device": "cuda:1",
+            "hostname": "server_a40_3",
+            "ip": "130.92.70.8",
+            "port": [19100,19101,19102,19103]
+          },
+
+        "server_2": {
+          "id": "s1_t2_2",
+          "device": "cuda:0",
+          "hostname": "server_a40_2",
+          "ip": "130.92.70.8",
+          "port": [19400,19401]
+        }
+
+      },
+      "tier1": {
+        "device_1": {
+          "id": "s1_t1_1",
+          "device": "cpu",
+          "hostname": "host_amd_agent",
+          "ip": "130.92.70.22",
+          "port": [8100]
+        },
+        "device_2": {
+          "id": "s1_t1_2",
+          "device": "cpu",
+          "hostname": "host_i9",
+          "ip": "130.92.65.237",
+          "port": [8200]
+        }
+      }
+    },
+    "site2": {
+        "description": "Collaborating Cluster - Straggler Cluster",
+        "tier3": {},
+        "tier2": {
+          "server_1": {
+          "id": "s2_t2_1",
+          "device": "cuda:0",
+          "hostname": "server_rtx4090_0",
+          "ip": "130.92.70.22",
+          "port": [9100,9101,9102,9103]
+        },
+        "server_2": {
+          "id": "s2_t2_2",
+          "device": "cuda:1",
+          "hostname": "server_rtx4090_1",
+          "ip": "130.92.70.22",
+          "port": [9200,9201]
+        }
+        },
+        "tier1": {
+          "device_1": {
+            "id": "s2_t1_1",
+            "device": "cpu",
+            "hostname": "host_i9",
+            "ip": "130.92.65.237",
+            "port": [8400]
+          },
+          "device_2": {
+            "id": "s2_t1_2",
+            "device": "cpu",
+            "hostname": "host_amd_agent",
+            "ip": "130.92.70.22",
+            "port": [8500]
+          }
+        }
+      }
+  }
+}
+

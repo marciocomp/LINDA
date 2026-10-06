@@ -1,0 +1,106 @@
+[
+  {
+    "comment": "--- SITE 1 (Lead Cluster) ---",
+    "u": "s1_t1_1",
+    "v": "s1_t2_1",
+    "type": "LAN",
+    "bandwidth_mbps": 1000,
+    "latency_ms": 1
+  },
+  {
+    "comment": "Site 1 Intra-Lab Connection (T2 to T1 Leader)",
+    "u": "s1_t2_1",
+    "v": "s1_t3_1",
+    "type": "LAN",
+    "bandwidth_mbps": 1000,
+    "latency_ms": 1
+  },
+
+
+  {
+    "comment": "--- SITE 2 (Straggler Cluster) ---",
+    "u": "s2_t1_1",
+    "v": "s2_t2_1",
+    "type": "LAN",
+    "bandwidth_mbps": 1000,
+    "latency_ms": 1
+  },
+  {
+    "comment": "Site 2 WAN Bottleneck (T2 to Leader)",
+    "u": "s2_t2_1",
+    "v": "s1_t3_1",
+    "type": "WAN",
+    "bandwidth_mbps": 100,
+    "latency_ms": 80
+  },
+
+
+  {
+    "comment": "--- SITE 3 (Strong Cluster - Device to Pool) ---",
+    "u": "s3_t1_1",
+    "v": "s3_t2_1",
+    "type": "LAN",
+    "bandwidth_mbps": 1000,
+    "latency_ms": 1
+  },
+  {
+    "u": "s3_t1_1",
+    "v": "s3_t2_2",
+    "type": "LAN",
+    "bandwidth_mbps": 1000,
+    "latency_ms": 1
+  },
+  {
+    "u": "s3_t1_1",
+    "v": "s3_t2_3",
+    "type": "LAN",
+    "bandwidth_mbps": 1000,
+    "latency_ms": 1
+  },
+
+  {
+    "comment": "--- SITE 3 (Strong Cluster - Intra-Pool Mesh) ---",
+    "u": "s3_t2_1",
+    "v": "s3_t2_2",
+    "type": "LAN",
+    "bandwidth_mbps": 1000,
+    "latency_ms": 1
+  },
+  {
+    "u": "s3_t2_1",
+    "v": "s3_t2_3",
+    "type": "LAN",
+    "bandwidth_mbps": 1000,
+    "latency_ms": 1
+  },
+  {
+    "u": "s3_t2_2",
+    "v": "s3_t2_3",
+    "type": "LAN",
+    "bandwidth_mbps": 1000,
+    "latency_ms": 1
+  },
+
+  {
+    "comment": "--- SITE 3 (Strong Cluster - WAN Exit) ---",
+    "u": "s3_t2_1",
+    "v": "s1_t3_1",
+    "type": "WAN",
+    "bandwidth_mbps": 500,
+    "latency_ms": 20
+  },
+  {
+    "u": "s3_t2_2",
+    "v": "s1_t3_1",
+    "type": "WAN",
+    "bandwidth_mbps": 500,
+    "latency_ms": 20
+  },
+  {
+    "u": "s3_t2_3",
+    "v": "s1_t3_1",
+    "type": "WAN",
+    "bandwidth_mbps": 500,
+    "latency_ms": 20
+  }
+]

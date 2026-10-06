@@ -1,0 +1,64 @@
+{
+  "sites": {
+    "site1": {
+      "description": "Lead Cluster - High Performance & Orchestration",
+      "tier3": {
+        "leader": {
+          "id": "s1_t3_1",
+          "device": "cuda:0",
+          "hostname": "thedeep2_leader",
+          "ip": "10.3.77.25",
+          "port": [10101,10110]
+        }
+      },
+      "tier2": {
+        "server_1": {
+          "id": "s1_t2_1",
+          "device": "cuda:0",
+          "hostname": "thedeep2_strong",
+          "ip": "10.3.77.25",
+          "port": [9100,9101,9102,9103]
+        },
+        "server_2": {
+          "id": "s1_t2_2",
+          "device": "cuda:0",
+          "hostname": "thedeep2_straggler",
+          "ip": "10.3.77.25",
+          "port": [9200,9201,9202]
+        }
+
+      },
+      "tier1": {
+        "device_1": {
+          "id": "s1_t1_1",
+          "device": "cpu",
+          "hostname": "perseu",
+          "ip": "10.3.77.4",
+          "port": [8100]
+        }
+      }
+    },
+    "site2": {
+      "description": "Collaborating Cluster - Straggler Cluster",
+      "tier3": {},
+      "tier2": {
+        "server_1": {
+          "id": "s2_t2_1",
+          "device": "cuda:0",
+          "hostname": "thedeep2_straggler",
+          "ip": "10.3.77.25",
+          "port": [9300,9301,9302,9303]
+        }
+      },
+      "tier1": {
+        "device_1": {
+          "id": "s2_t1_1",
+          "device": "cpu",
+          "hostname": "esculapio",
+          "ip": "10.3.77.73",
+          "port": [8300]
+        }
+      }
+    }
+  }
+}
