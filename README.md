@@ -1,7 +1,5 @@
 # LINDA
 
-LINDA: Memory-Aware Dynamic Allocation for Horizontal and Hierarchical Split Federated Learning of LLMs
-
 **L**earning on **I**nterconnected **N**odes via **D**ynamic **A**llocation — a
 memory-aware framework for distributed training of Large Language Models across
 a Multi-Cluster Continuum.
@@ -26,6 +24,11 @@ runtime and throughput from a timed matmul — rather than declared in a file.
 ### `frameworkLINDA/`
 
 The framework itself: one module per tier of the 2HSFL topology.
+
+![The four LINDA modules across the tiers of the 2HSFL architecture: the Node
+Agent on each Tier 1 data source, the Cluster Manager and the Compute Workers on
+the Tier 2 compute pool, and the Orchestrator on the Tier 3 aggregation
+pool.](docs/linda_modules.png)
 
 | module | role |
 |---|---|
@@ -425,10 +428,13 @@ REDU, the research data repository of the University of Campinas, under
 }
 ```
 
-The deposit holds 50 executions grouped by experiment, with the per-node
-performance timers, the per-message network records, the memory snapshots, the
-training logs and the allocation decisions of each run. The data are licensed
-under CC BY-NC 4.0, separately from the code.
+The deposit holds 55 executions in five archives, with the per-node performance
+timers, the per-message network records, the memory snapshots, the training logs
+and the allocation decisions of each run. Four archives hold the 50 executions
+behind the reported results; the fifth holds five runs of the vision route that
+the paper does not report. Its `README.txt` maps every run identifier to its
+configuration and seed. The data are licensed under CC BY-NC 4.0, separately
+from the code.
 
 ## License
 
